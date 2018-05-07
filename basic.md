@@ -1,5 +1,3 @@
-# Pull and run an image from a local repository
-
 * Runs an image from the local repository and exits immediately.
 
 ```shell
