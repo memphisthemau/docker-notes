@@ -1,6 +1,6 @@
 ## Table of Contents
-**[Docker](#docker)**
-**[Compose](#compose)**
+**[Docker](#docker)**<br>
+**[Compose](#compose)**<br>
 
 ## Docker
 * Runs an image from the local repository and exits immediately.
