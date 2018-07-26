@@ -76,4 +76,15 @@ munheng@ubuntu:~$ s docker inspect d7 | grep "IPAddress"
                     "IPAddress": "",
 ```
 
+* Cleaning up stopped containers.
+
+```shell
+$ docker rm -v $(docker ps -aq -f status=exited)
+```
+
+## Dockerfile
+
+* **FROM** instruction specifies the base image to use. All Dockerfiles must have a **FROM** instruction as the first noncomment instruction. 
+
+
 ## Compose
