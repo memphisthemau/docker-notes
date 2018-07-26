@@ -84,7 +84,9 @@ $ docker rm -v $(docker ps -aq -f status=exited)
 
 ## Dockerfile
 
-* **FROM** instruction specifies the base image to use. All Dockerfiles must have a **FROM** instruction as the first noncomment instruction. 
-
+* **FROM** instruction specifies the base image to use. All `Dockerfiles` must have a **FROM** instruction as the first non-comment instruction. 
+* **RUN** instructions specify a shell command to execute inside the image.
+* *Build* the image by running `docker build` inside the same directory where the `Dockerfile` lives.
+* *Run* the image by typing `docker run <image_name> <command_to_be_executed_on_image>`.
 
 ## Compose
