@@ -1,5 +1,6 @@
 ## Table of Contents
 **[Docker](#docker)**<br>
+**[Dockerfile](#dockerfile)**<br>
 **[Compose](#compose)**<br>
 
 ## Docker
