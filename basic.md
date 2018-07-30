@@ -130,6 +130,7 @@ root@75d08980aade:/# ls
 bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 root@75d08980aade:/# exit
 ```
+* Start the image as a *daemon* and connect to the running container.
 
 ```shell
 $ docker run -it -d mydjango:v0.1
