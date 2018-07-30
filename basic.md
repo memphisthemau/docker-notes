@@ -77,10 +77,28 @@ munheng@ubuntu:~$ s docker inspect d7 | grep "IPAddress"
                     "IPAddress": "",
 ```
 
+### Cleaning Up
+
 * Cleaning up stopped containers.
 
 ```shell
 $ docker rm -v $(docker ps -aq -f status=exited)
+```
+
+* Kill all running containers.
+```shell
+docker kill $(docker ps -q)
+```
+
+* Delete all stopped containers.
+
+```shell
+docker rm $(docker ps -a -q)
+```
+
+* Delete all images.
+```shell
+docker rmi $(docker images -q)
 ```
 
 ## Dockerfile
