@@ -87,6 +87,18 @@ $ docker rm -v $(docker ps -aq -f status=exited)
 
 * **FROM** instruction specifies the base image to use. All `Dockerfiles` must have a **FROM** instruction as the first non-comment instruction. 
 * **RUN** instructions specify a shell command to execute inside the image.
+```shell
+$ cat Dockerfile 
+FROM ubuntu
+
+RUN apt-get update && apt-get install -y python python-pip
+
+RUN pip -v install --trusted-host=pypi.org --trusted-host=files.pythonhosted.org --proxy=http://proxy.domain.com:81 flask
+
+COPY app.py /opt/
+
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0 --port=80
+```
 * *Build* the image by running `docker build` inside the same directory where the `Dockerfile` lives. Use `--no-cache` to do a clean build without relying on the cache from the last build.
 ```shell
 docker build --no-cache --build-arg http_proxy=http://proxy.domain.com:81 -t my-simple-webapp .
