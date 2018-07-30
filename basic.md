@@ -121,6 +121,14 @@ ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0 --port=80
 ```shell
 docker build --no-cache --build-arg http_proxy=http://proxy.domain.com:81 -t my-simple-webapp .
 ```
-* *Run* the image by typing `docker run <image_name> <command_to_be_executed_on_image>`.
+* *Run* the image by typing `docker run -it <image_name:tag> [command_to_be_executed_on_image]`.
+
+```shell
+$ docker run -it mydjango:v0.1
+root@75d08980aade:/# 
+root@75d08980aade:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@75d08980aade:/# exit
+```
 
 ## Compose
