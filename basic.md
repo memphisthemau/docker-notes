@@ -131,4 +131,14 @@ bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  s
 root@75d08980aade:/# exit
 ```
 
+```shell
+$ docker run -it -d mydjango:v0.1
+574da457a562e129027c07fb0acfc21eab55e9d0529f0b2a856525586bd45e37
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS           PORTS     NAMES
+574da457a562        mydjango:v0.1       "/bin/bash"         13 seconds ago      Up 13 seconds              hopeful_hypatia
+$ docker attach 574da457a562
+root@574da457a562:/# 
+```
+
 ## Compose
