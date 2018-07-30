@@ -87,7 +87,10 @@ $ docker rm -v $(docker ps -aq -f status=exited)
 
 * **FROM** instruction specifies the base image to use. All `Dockerfiles` must have a **FROM** instruction as the first non-comment instruction. 
 * **RUN** instructions specify a shell command to execute inside the image.
-* *Build* the image by running `docker build` inside the same directory where the `Dockerfile` lives.
+* *Build* the image by running `docker build` inside the same directory where the `Dockerfile` lives. Use `--no-cache` to do a clean build without relying on the cache from the last build.
+```shell
+docker build --no-cache --build-arg http_proxy=http://proxy.domain.com:81 -t my-simple-webapp .
+```
 * *Run* the image by typing `docker run <image_name> <command_to_be_executed_on_image>`.
 
 ## Compose
