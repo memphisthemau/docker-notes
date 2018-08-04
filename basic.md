@@ -168,3 +168,48 @@ docker-compose up --build
 ```shell
 docker-compose up -d
 ```
+
+* Check if the containers are running.
+
+```shell
+$ docker-compose ps
+     Name           Command      State         Ports        
+-----------------------------------------------------------
+flaskapp_web_1   python app.py   Up      0.0.0.0:80->80/tcp 
+```
+
+* Check the console logs of the detached containers.
+
+```shell
+docker-compose logs
+```
+
+* Stop the running containers.
+
+```shell
+$ docker-compose ps        
+     Name           Command      State         Ports        
+-----------------------------------------------------------
+flaskapp_web_1   python app.py   Up      0.0.0.0:80->80/tcp 
+$ docker-compose stop
+Stopping flaskapp_web_1 ... done
+$ docker-compose ps  
+     Name           Command      State    Ports 
+-----------------------------------------------
+flaskapp_web_1   python app.py   Exit 0
+```
+
+* Delete the stopped containers.
+
+```shell
+$ docker-compose ps  
+     Name           Command      State    Ports 
+-----------------------------------------------
+flaskapp_web_1   python app.py   Exit 0         
+$ docker-compose down
+Removing flaskapp_web_1 ... done
+Removing network flaskapp_default
+$ docker-compose ps  
+Name   Command   State   Ports 
+------------------------------
+```
