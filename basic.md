@@ -145,3 +145,26 @@ root@574da457a562:/#
 ## Compose
 
 * `docker-compose` is a wrapper around the `docker` command. `docker-compose build` will read the `docker-compose.yml` file, look for all `services` containing the `build:` statement and run a `docker build` for each one.
+* Only builds the images, does not start the containers:
+
+```shell
+docker-compose build
+```
+
+* Builds the images _if the images do not exist_ and starts the containers for the `services` in the `docker-compose.yml` file. If you make changes to the `Dockerfile` that the image is based on and want the image to inherit the changes, you can just add the `--build` option instead of manually deleting the image and rerunning.
+
+```shell
+docker-compose up [--build]
+```
+
+* Forces a build of the images even when it is not needed (like using the cache).
+
+```shell
+docker-compose up --build
+```
+
+* Starts the containers in _detached_ mode and run them in the background. 
+
+```shell
+docker-compose up -d
+```
