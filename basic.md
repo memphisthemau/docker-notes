@@ -82,7 +82,7 @@ munheng@ubuntu:~$ s docker inspect d7 | grep "IPAddress"
 * Cleaning up stopped containers.
 
 ```shell
-$ docker rm -v $(docker ps -aq -f status=exited)
+docker rm -v $(docker ps -aq -f status=exited)
 ```
 
 * Kill all running containers.
@@ -143,3 +143,5 @@ root@574da457a562:/#
 ```
 
 ## Compose
+
+* `docker-compose` is a wrapper around the `docker` command. `docker-compose build` will read the `docker-compose.yml` file, look for all `services` containing the `build:` statement and run a `docker build` for each one.
