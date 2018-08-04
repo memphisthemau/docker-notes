@@ -154,13 +154,56 @@ docker-compose build
 * Builds the images _if the images do not exist_ and starts the containers for the `services` in the `docker-compose.yml` file. If you make changes to the `Dockerfile` that the image is based on and want the image to inherit the changes, you can just add the `--build` option instead of manually deleting the image and rerunning.
 
 ```shell
-docker-compose up [--build]
+docker-compose up
 ```
 
 * Forces a build of the images even when it is not needed (like using the cache).
 
 ```shell
 docker-compose up --build
+```
+
+* Running the _development server_.
+
+```shell
+$ docker-compose up --build
+Building hello
+Step 1/8 : FROM python:3
+ ---> 825141134528
+Step 2/8 : ENV PYTHONUNBUFFERED 1
+ ---> Using cache
+ ---> b90b94a5958d
+Step 3/8 : WORKDIR /app
+ ---> Using cache
+ ---> 897498d3ff70
+Step 4/8 : COPY app.py /app
+ ---> Using cache
+ ---> dba72def05e5
+Step 5/8 : COPY requirements.txt /app
+ ---> Using cache
+ ---> 2a830a50f513
+Step 6/8 : RUN pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org --proxy http://proxy.bloomberg.com:81 -r requirements.txt
+ ---> Using cache
+ ---> 26a49354bbbe
+Step 7/8 : EXPOSE 80
+ ---> Using cache
+ ---> 326c8e1fb02c
+Step 8/8 : CMD python app.py
+ ---> Using cache
+ ---> 5352b7d87725
+Successfully built 5352b7d87725
+Recreating flaskapp_hello_1
+Attaching to flaskapp_hello_1
+hello_1  |  * Serving Flask app "app" (lazy loading)
+hello_1  |  * Environment: production
+hello_1  |    WARNING: Do not use the development server in a production environment.
+hello_1  |    Use a production WSGI server instead.
+hello_1  |  * Debug mode: on
+hello_1  |  * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+hello_1  |  * Restarting with stat
+hello_1  |  * Debugger is active!
+hello_1  |  * Debugger PIN: 197-442-924
+hello_1  | 10.144.24.78 - - [04/Aug/2018 15:34:37] "GET /how%20are%20you? HTTP/1.1" 200 -
 ```
 
 * Starts the containers in _detached_ mode and run them in the background. 
