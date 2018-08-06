@@ -97,8 +97,15 @@ docker rm $(docker ps -a -q)
 ```
 
 * Delete all images.
+
 ```shell
 docker rmi $(docker images -q)
+```
+
+* Prune all _dangling_ images.
+
+```shell
+docker rmi $(docker images -f "dangling=true" -q)
 ```
 
 ## Dockerfile
