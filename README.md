@@ -331,3 +331,20 @@ CONTAINER ID        IMAGE                COMMAND                  CREATED       
 de447f5a75df        flaskappprod_nginx   "nginx -g 'daemon ..."   16 hours ago        Up 16 hours         0.0.0.0:80->80/tcp       flaskappprod_nginx_1
 53f46ed54816        flaskappprod_webui   "uwsgi --ini /app/..."   16 hours ago        Up 16 hours         0.0.0.0:3031->3031/tcp   flaskappprod_webui_1
 ```
+
+* Docker production directory layout and configuration files.
+
+```shell
+.
++-- apps
+|   +-- app.py
+|   +-- Dockerfile
+|   +-- requirements.txt
+|   +-- templates
+|   |   +-- index.html
+|   +-- uwsgi.ini
++-- docker-compose.yml
++-- nginx
+    +-- Dockerfile
+    +-- nginx.conf
+```
