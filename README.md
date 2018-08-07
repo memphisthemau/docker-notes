@@ -3,8 +3,6 @@
 **[Dockerfile](#dockerfile)**<br>
 **[Compose](#compose)**<br>
 **[Development and Production instances](#dev-and-prod-instances)**<br>
-***[Development](#dev-instances)***<br>
-***[Production](#prod-instances)***<br>
 
 ## Docker
 * Runs an image from the local repository and exits immediately.
