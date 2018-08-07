@@ -295,6 +295,7 @@ CMD ["python", "app.py"]
 ```
 
 ```shell
+$ cat docker-compose.yml 
 version: '2'
 services:
     webui:
