@@ -267,6 +267,8 @@ Name   Command   State   Ports
 
 ## Development and Production instances
 
+### Development
+
 * Running a development environment on high-ports and with these files modified to a certain extend.
 
 ```shell
@@ -331,6 +333,14 @@ CONTAINER ID        IMAGE                COMMAND                  CREATED       
 de447f5a75df        flaskappprod_nginx   "nginx -g 'daemon ..."   16 hours ago        Up 16 hours         0.0.0.0:80->80/tcp       flaskappprod_nginx_1
 53f46ed54816        flaskappprod_webui   "uwsgi --ini /app/..."   16 hours ago        Up 16 hours         0.0.0.0:3031->3031/tcp   flaskappprod_webui_1
 ```
+
+* Testing application in development environment by temporarily resetting `http_proxy` environment variable.
+
+```shell
+$ http_proxy='' curl -vvv -L -k curl -H "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" http://127.0.0.1:5000/hello/foo
+```
+
+### Production
 
 * Docker production directory layout and configuration files.
 
