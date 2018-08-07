@@ -313,3 +313,11 @@ services:
     #        - webui
 ```
 
+* Go into the project directory and run `docker-compose ps` to see the running containers. In the dev directory you'll be able to see it's running containers only.
+
+```shell
+$ docker-compose ps
+       Name              Command      State           Ports          
+--------------------------------------------------------------------
+flaskappdev_webui_1   python app.py   Up      0.0.0.0:5000->5000/tcp 
+```
