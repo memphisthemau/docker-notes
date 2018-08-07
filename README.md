@@ -321,3 +321,13 @@ $ docker-compose ps
 --------------------------------------------------------------------
 flaskappdev_webui_1   python app.py   Up      0.0.0.0:5000->5000/tcp 
 ```
+
+* `docker ps` will show the global pool of running containers.
+
+```shell
+$ docker ps
+CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS              PORTS                    NAMES
+2299a9e0015b        flaskappdev_webui    "python app.py"          4 minutes ago       Up 4 minutes        0.0.0.0:5000->5000/tcp   flaskappdev_webui_1
+de447f5a75df        flaskappprod_nginx   "nginx -g 'daemon ..."   16 hours ago        Up 16 hours         0.0.0.0:80->80/tcp       flaskappprod_nginx_1
+53f46ed54816        flaskappprod_webui   "uwsgi --ini /app/..."   16 hours ago        Up 16 hours         0.0.0.0:3031->3031/tcp   flaskappprod_webui_1
+```
