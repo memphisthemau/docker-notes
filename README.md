@@ -2,6 +2,7 @@
 **[Docker](#docker)**<br>
 **[Dockerfile](#dockerfile)**<br>
 **[Compose](#compose)**<br>
+**[Development and Production instances](#dev-and-prod-instances)**<br>
 
 ## Docker
 * Runs an image from the local repository and exits immediately.
@@ -262,5 +263,52 @@ Removing network flaskapp_default
 $ docker-compose ps  
 Name   Command   State   Ports 
 ------------------------------
+```
+
+## Development and Production instances
+
+* Running a development environment on high-ports and with these files modified to a certain extend.
+
+```shell
+.
++-- apps
+|   +-- app.py <- Modify for development.
+|   +-- Dockerfile <- Modify for development.
+|   +-- requirements.txt
+|   +-- templates
+|   |   +-- index.html
+|   +-- uwsgi.ini <- Not required for development.
++-- docker-compose.yml <- Modify for development.
++-- nginx
+    +-- Dockerfile <- Not required for development.
+    +-- nginx.conf <- Not required for development.
+```
+
+```shell
+$ grep 5000 apps/app.py    
+    app.run(host="0.0.0.0", port='5000', debug=True)
+```
+
+```shell
+$ egrep "^CMD" apps/Dockerfile              
+CMD ["python", "app.py"]
+```
+
+```shell
+version: '2'
+services:
+    webui:
+        build: ./apps
+        ports:
+            - "5000:5000"
+
+    #nginx:
+    #    build: ./nginx
+    #    volumes:
+    #        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    #    ports:
+    #        - "81:81"
+    #    links:
+    #        - webui
 ```
 
