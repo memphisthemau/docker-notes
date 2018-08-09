@@ -150,6 +150,8 @@ $ docker attach 574da457a562
 root@574da457a562:/# 
 ```
 
+* 
+
 ## Compose
 
 * `docker-compose` is a wrapper around the `docker` command. `docker-compose build` will read the `docker-compose.yml` file, look for all `services` containing the `build:` statement and run a `docker build` for each one.
@@ -357,4 +359,64 @@ $ http_proxy='' curl -vvv -L -k curl -H "Mozilla/5.0 (Windows NT 6.1; Win64; x64
 +-- nginx
     +-- Dockerfile
     +-- nginx.conf
+```
+
+* Bring up the containers in the background (daemon mode) with the `-d` flag.
+
+```shell
+docker-compose up --build -d
+```
+
+* List all containers that are running, either in the foreground or background.
+
+```shell
+$ docker-compose ps
+       Name                      Command               State           Ports          
+-------------------------------------------------------------------------------------
+flaskapp_prod_nginx   nginx -g daemon off; -c /e ...   Up      0.0.0.0:80->80/tcp     
+flaskapp_prod_webui   uwsgi --ini /app/uwsgi.ini       Up      0.0.0.0:3031->3031/tcp 
+```
+
+* In order to _execute_ commands on the containers running in the background, use one of these `docker` commands.
+
+```shell
+$ docker ps
+CONTAINER ID      IMAGE           COMMAND                  CREATED             STATUS          PORTS                    NAMES
+0d7959f678d5      prod_nginx      "nginx -g 'daemon ..."   42 seconds ago      Up 41 seconds   0.0.0.0:80->80/tcp       flaskapp_prod_nginx
+cfffe567b1d9      prod_webui      "uwsgi --ini /app/..."   42 seconds ago      Up 41 seconds   0.0.0.0:3031->3031/tcp   flaskapp_prod_webui
+```
+
+```shell
+docker exec -it cfffe567b1d9 ls -l /app
+total 20
+-rw-rw-r-- 1 root root  399 Aug  8 12:39 app.py
+-rw-rw-r-- 1 root root   27 Aug  6 08:51 requirements.txt
+drwxr-xr-x 2 root root 4096 Aug  9 06:13 static
+drwxr-xr-x 2 root root 4096 Aug  9 06:13 templates
+-rw-rw-r-- 1 root root  197 Aug  9 06:02 uwsgi.ini
+mlee5@10-150-139-250:~/docker/flaskapp/prod$ docker exec -it cfffe567b1d9 ls -lF /app
+total 20
+-rw-rw-r-- 1 root root  399 Aug  8 12:39 app.py
+-rw-rw-r-- 1 root root   27 Aug  6 08:51 requirements.txt
+drwxr-xr-x 2 root root 4096 Aug  9 06:13 static/
+drwxr-xr-x 2 root root 4096 Aug  9 06:13 templates/
+-rw-rw-r-- 1 root root  197 Aug  9 06:02 uwsgi.ini
+mlee5@10-150-139-250:~/docker/flaskapp/prod$ docker exec -it cfffe567b1d9 ls -lFR /app
+/app:
+total 20
+-rw-rw-r-- 1 root root  399 Aug  8 12:39 app.py
+-rw-rw-r-- 1 root root   27 Aug  6 08:51 requirements.txt
+drwxr-xr-x 2 root root 4096 Aug  9 06:13 static/
+drwxr-xr-x 2 root root 4096 Aug  9 06:13 templates/
+-rw-rw-r-- 1 root root  197 Aug  9 06:02 uwsgi.ini
+
+/app/static:
+total 4
+-rw-rw-r-- 1 root root 28 Aug  8 14:23 style.css
+
+/app/templates:
+total 12
+-rw-rw-r-- 1 root root 488 Aug  9 02:02 base.html
+-rw-rw-r-- 1 root root 428 Aug  9 01:43 index.html
+-rw-rw-r-- 1 root root 335 Aug  9 02:04 welcome.html
 ```
