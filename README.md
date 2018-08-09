@@ -406,3 +406,13 @@ total 12
 -rw-rw-r-- 1 root root 428 Aug  9 01:43 index.html
 -rw-rw-r-- 1 root root 335 Aug  9 02:04 welcome.html
 ```
+
+* To _attach_ to a container running in the background do the following. Notice that the restricted shell is a good security measure.
+
+```shell
+$ docker exec -it cfffe567b1d9 bash
+root@cfffe567b1d9:/app# ifconfig
+bash: ifconfig: command not found
+root@cfffe567b1d9:/app# reboot
+bash: reboot: command not found
+```
