@@ -371,7 +371,7 @@ docker-compose up --build -d
 
 ```shell
 $ docker-compose ps
-       Name                      Command               State           Ports          
+       Name           Command                          State   Ports          
 -------------------------------------------------------------------------------------
 flaskapp_prod_nginx   nginx -g daemon off; -c /e ...   Up      0.0.0.0:80->80/tcp     
 flaskapp_prod_webui   uwsgi --ini /app/uwsgi.ini       Up      0.0.0.0:3031->3031/tcp 
@@ -387,21 +387,7 @@ cfffe567b1d9      prod_webui      "uwsgi --ini /app/..."   42 seconds ago      U
 ```
 
 ```shell
-docker exec -it cfffe567b1d9 ls -l /app
-total 20
--rw-rw-r-- 1 root root  399 Aug  8 12:39 app.py
--rw-rw-r-- 1 root root   27 Aug  6 08:51 requirements.txt
-drwxr-xr-x 2 root root 4096 Aug  9 06:13 static
-drwxr-xr-x 2 root root 4096 Aug  9 06:13 templates
--rw-rw-r-- 1 root root  197 Aug  9 06:02 uwsgi.ini
-mlee5@10-150-139-250:~/docker/flaskapp/prod$ docker exec -it cfffe567b1d9 ls -lF /app
-total 20
--rw-rw-r-- 1 root root  399 Aug  8 12:39 app.py
--rw-rw-r-- 1 root root   27 Aug  6 08:51 requirements.txt
-drwxr-xr-x 2 root root 4096 Aug  9 06:13 static/
-drwxr-xr-x 2 root root 4096 Aug  9 06:13 templates/
--rw-rw-r-- 1 root root  197 Aug  9 06:02 uwsgi.ini
-mlee5@10-150-139-250:~/docker/flaskapp/prod$ docker exec -it cfffe567b1d9 ls -lFR /app
+$ docker exec -it cfffe567b1d9 ls -lFR /app
 /app:
 total 20
 -rw-rw-r-- 1 root root  399 Aug  8 12:39 app.py
