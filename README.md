@@ -150,8 +150,6 @@ $ docker attach 574da457a562
 root@574da457a562:/# 
 ```
 
-* 
-
 ## Compose
 
 * `docker-compose` is a wrapper around the `docker` command. `docker-compose build` will read the `docker-compose.yml` file, look for all `services` containing the `build:` statement and run a `docker build` for each one.
@@ -265,6 +263,27 @@ Removing network flaskapp_default
 $ docker-compose ps  
 Name   Command   State   Ports 
 ------------------------------
+```
+
+* To ensure we can `attach` to a container already running in the background, ensure `stdin_open: true` and `tty: true` are configured in `docker-compose.yml`.
+
+```shell
+        stdin_open: true
+        tty: true
+```
+
+* Run a container in the background with the `-d` flag. If `stdin_open: true` and `tty: true` are configured in `docker-compose.yml` you can attach to the container and _detaach_ from it with `Ctrl-p` + `Ctrl-q` without killing the container.
+
+```shell
+$ docker-compose up --build -d
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+9f24ee3ba251        nginxdocker_nginx   "nginx -g 'daemon ..."   33 seconds ago      Up 32 seconds       0.0.0.0:80->80/tcp   nginx_prod
+$ docker attach nginx_prod
+10.144.24.78 - - [16/Aug/2018:02:49:46 +0000] "GET /guacamole/ HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
+10.144.24.78 - - [16/Aug/2018:02:49:46 +0000] "GET /guacamole/api/languages?token=85875af0ebba63c00dac313322a9328e38fb98eb2573bdc2c31a3da9f06cfba7 HTTP/1.1" 200 115 "http://10.150.139.249/guacamole/" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
+10.144.24.78 - - [16/Aug/2018:02:49:46 +0000] "POST /guacamole/api/tokens HTTP/1.1" 403 161 "http://10.150.139.249/guacamole/" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
+10.144.24.78 - - [16/Aug/2018:02:49:46 +0000] "GET /guacamole/images/logo-144.png HTTP/1.1" 200 9167 "http://10.150.139.249/guacamole/" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
 ```
 
 ## Development and Production instances
