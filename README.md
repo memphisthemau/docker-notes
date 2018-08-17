@@ -184,10 +184,10 @@ docker-compose build
 docker-compose up
 ```
 
-* Forces a build of the images even when it is not needed (like using the cache).
+* Forces a build of the images even when it is not needed (like using the cache). _Ordering_ of the flags are significant.
 
 ```shell
-docker-compose up --build
+docker-compose --verbose up --build
 ```
 
 * Running the _development server_.
