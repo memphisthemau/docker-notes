@@ -150,6 +150,25 @@ $ docker attach 574da457a562
 root@574da457a562:/# 
 ```
 
+* Execute commands in a running container and exit.
+
+```shell
+$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                    NAMES
+7c971d9f0929        55e83ce465d6                "/bin/sh -c '/bin/..."   6 minutes ago       Up 6 minutes                                 relaxed_sammet
+```
+
+```shell
+$ docker exec  7c971d9f0929 ls -la /repo/
+total 20
+dr-xrwx--x  4 root www-data 4096 Aug 17 05:04 .
+drwxr-xr-x 51 root root     4096 Aug 17 05:02 ..
+drwxr-xr-x  4 root root     4096 Aug 17 05:04 .temp
+-r--r--r--  1 root root       15 Aug 17 05:02 Archive-Update-in-Progress-7c971d9f0929
+drwxr-xr-x  5 root root     4096 Aug 17 05:05 dists
+-rw-r--r--  1 root root        0 Aug 17 04:55 test.txt
+```
+
 ## Compose
 
 * `docker-compose` is a wrapper around the `docker` command. `docker-compose build` will read the `docker-compose.yml` file, look for all `services` containing the `build:` statement and run a `docker build` for each one.
