@@ -305,6 +305,13 @@ $ docker attach nginx_prod
 10.144.24.78 - - [16/Aug/2018:02:49:46 +0000] "GET /guacamole/images/logo-144.png HTTP/1.1" 200 9167 "http://10.150.139.249/guacamole/" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36" "-"
 ```
 
+* Use `volumes` in `docker-compose.yml` to mount files on the host to a location in a container. Any changes to the file on the host will only be reflected in the container after running `docker restart <container_id>`. There will be a disconnection.
+
+```shell
+        volumes:
+            - ./app/user-mapping.xml:/etc/guacamole/user-mapping.xml
+```
+
 ## Development and Production instances
 
 ### Development
