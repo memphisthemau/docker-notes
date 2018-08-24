@@ -387,6 +387,37 @@ de447f5a75df        flaskappprod_nginx   "nginx -g 'daemon ..."   16 hours ago  
 $ http_proxy='' curl -vvv -L -k curl -H "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" http://127.0.0.1:5000/hello/foo
 ```
 
+* Limit container resources in the `docker-compose.yml` file.
+
+```shell
+$ cat docker-compose.yml 
+version: '2'
+services:
+    webui:
+        build: ./apps
+        container_name: "flaskapp_prod_webui"
+        ports:
+            - "3031:3031"
+
+    nginx:
+        build: ./nginx
+        container_name: "flaskapp_prod_nginx"
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - "80:80"
+        links:
+            - webui
+        mem_limit: 100000000 <- limits to 100MB!
+```
+
+```shell
+$ docker stats fa2b6dedadd9
+CONTAINER     CPU %     MEM USAGE / LIMIT      MEM %    NET I/O           BLOCK I/O   PIDS
+c46d96b4e41a  0.00%     1.43 MiB / 190.7 MiB   0.75%    1.74 kB / 648 B   0 B / 0 B   2
+                                   ^^^^^^^^^
+```
+
 ### Production
 
 * Docker production directory layout and configuration files.
