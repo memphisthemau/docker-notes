@@ -169,7 +169,7 @@ $
 ```
 
 * Save the new image as a `.tar` archive. The `.tar` archive can be scp'd to another host and brought up as a container.
-
+```shell
 $ docker save -o http-template.tar httpd-template
 
 $ ls *.tar
