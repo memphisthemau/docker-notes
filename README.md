@@ -130,7 +130,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 ```shell
 $ docker exec -it 86 bash
-root@2c5fb262a533:/usr/local/apache2# export http_proxy="http://proxy.bloomberg.com:81"
+root@2c5fb262a533:/usr/local/apache2# export http_proxy="http://proxy.corporate.com:81"
 root@2c5fb262a533:/usr/local/apache2# apt-get update                              
 Get:1 http://security.debian.org jessie/updates InRelease [44.9 kB]
 Ign http://deb.debian.org jessie InRelease                 
