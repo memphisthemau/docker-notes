@@ -84,8 +84,104 @@ munheng@ubuntu:~$ s docker inspect d7 | grep "IPAddress"
                     "IPAddress": "",
 ```
 
-* 
+## Commmit, Save and Load Images.
 
+* Pull a _reference_ image from hub.docker.com.
+
+```shell
+$ docker pull httpd
+Using default tag: latest
+latest: Pulling from library/httpd
+f189db1b88b3: Pull complete 
+ba2d31d4e2e7: Pull complete 
+23a65f5e3746: Pull complete 
+5e8eccbd4bc6: Pull complete 
+4c145eec18d8: Pull complete 
+1c74ffd6a8a2: Pull complete 
+1421f0320e1b: Pull complete 
+Digest: sha256:8631904c6e92918b6c7dd82b72512714e7fbc3f1a1ace2de17cb2746c401b8fb
+Status: Downloaded newer image for httpd:latest
+```
+
+```shell
+$ docker images -a | { head -1; grep [h]ttpd; }
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+httpd               latest              d595a4011ae3        5 days ago          178 MB
+```
+
+* Run the local image, then make a change to the running container.
+
+```shell
+$ docker run -it --name httpd-template-base -p 8080:80 -e TERM=xterm -d httpd
+86a43e482df77319fed13db5ff3f600ca2293c0d2b20fb1b1d41c2d30586aa63
+
+OR
+
+$ docker run -it --env HTTP_PROXY="http://proxy.bloomberg.com:81" --name httpd-template-base2 -p 8080:80 -e TERM=xterm -d httpd
+2c5fb262a533813ff6026a9ba1bc64622cba872f9b96326bd38fa25eafc90815
+
+
+$ docker ps -a | { head -1; grep [h]ttpd; }
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                     PORTS                  NAMES
+86a43e482df7        httpd               "httpd-foreground"       23 seconds ago      Up 23 seconds              0.0.0.0:8080->80/tcp   httpd-template-base
+```
+
+* Connect interactively to the container running in the background and make changes to it.
+
+```shell
+$ docker exec -it 86 bash
+root@2c5fb262a533:/usr/local/apache2# export http_proxy="http://proxy.bloomberg.com:81"
+root@2c5fb262a533:/usr/local/apache2# apt-get update                              
+Get:1 http://security.debian.org jessie/updates InRelease [44.9 kB]
+Ign http://deb.debian.org jessie InRelease                 
+Get:2 http://deb.debian.org jessie-updates InRelease [145 kB]
+Get:3 http://security.debian.org jessie/updates/main amd64 Packages [656 kB]
+Get:4 http://deb.debian.org jessie-backports InRelease [166 kB]                   
+Ign http://deb.debian.org stretch InRelease
+Get:5 http://deb.debian.org jessie Release.gpg [2420 B]
+Get:6 http://deb.debian.org jessie-updates/main amd64 Packages [23.0 kB]
+Get:7 http://deb.debian.org stretch Release.gpg [2434 B]
+Get:8 http://deb.debian.org jessie Release [148 kB]
+Get:9 http://deb.debian.org jessie-backports/main amd64 Packages [1172 kB]
+Get:10 http://deb.debian.org stretch Release [118 kB]
+Get:11 http://deb.debian.org jessie/main amd64 Packages [9098 kB]
+Get:12 http://deb.debian.org stretch/main amd64 Packages [9500 kB]
+Fetched 21.1 MB in 1min 4s (325 kB/s)
+Reading package lists... Done
+root@2c5fb262a533:/usr/local/apache2# apt-get install vim
+...
+```
+
+* Exit the container and commit the changes to a new image.
+
+```shell
+root@2c5fb262a533:/usr/local/apache2# exit
+$ 
+
+$ docker commit 2c httpd-template
+sha256:69b333de9627c43e4005cf33398840b65ddb362191e24d8d89f6ad10cc9ae8bb
+$ 
+
+$ docker images | { head -1; grep [h]ttpd; }
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+httpd-template      latest              69b333de9627        39 seconds ago      227 MB
+$
+```
+
+* Save the new image as a `.tar` archive. The `.tar` archive can be scp'd to another host and brought up as a container.
+
+$ docker save -o http-template.tar httpd-template
+
+$ ls *.tar
+http-template.tar
+```
+
+* Use `docker load` to import the `.tar` archive as an image.
+
+```shell
+$ docker load -i http-template.tar 
+Loaded image: httpd-template:latest
+```
 
 ### Cleaning Up
 
