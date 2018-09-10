@@ -31,6 +31,12 @@ CONTAINER ID        IMAGE                         COMMAND                  CREAT
 d51ca36e5f42        registry:2                    "/entrypoint.sh /etc…"   37 hours ago        Up 37 hours         0.0.0.0:5000->5000/tcp   local-repository
 ```
 
+* Show the ports exposed by a specific container. Note: `docker ps` or `docker container ls` lists the ports in order of external then internal port, whereas `docker port` lists the ports in order of internal then external ports.
+
+```shell
+$ docker port nginx
+```
+
 * Reattach to the instance running in the background. _Exits_ and stops the running instance.
 
 ```shell
@@ -77,6 +83,9 @@ munheng@ubuntu:~$ s docker inspect d7 | grep "IPAddress"
             "IPAddress": "",
                     "IPAddress": "",
 ```
+
+* 
+
 
 ### Cleaning Up
 
